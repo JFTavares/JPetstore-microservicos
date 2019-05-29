@@ -1,0 +1,54 @@
+Manifest-Version: 1.0
+Automatic-Module-Name: org.mybatis.jpetstore
+Bnd-LastModified: 1559166197895
+Build-Jdk: 1.8.0_212
+Built-By: josefernandotavares
+Bundle-Description: The MyBatis parent POM.
+Bundle-DocURL: http://www.mybatis.org
+Bundle-License: https://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-ManifestVersion: 2
+Bundle-Name: JPetStore Demo 6
+Bundle-SymbolicName: org.mybatis.jpetstore
+Bundle-Vendor: MyBatis.org
+Bundle-Version: 6.0.3.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: org.mybatis.jpetstore.domain;version="6.0.3.SNAPSHOT",or
+ g.mybatis.jpetstore.mapper;version="6.0.3.SNAPSHOT",org.mybatis.jpetsto
+ re.service;version="6.0.3.SNAPSHOT",org.mybatis.jpetstore.web.actions;v
+ ersion="6.0.3.SNAPSHOT"
+Implementation-Build-Date: 2019-05-29 21:43:02+0000
+Implementation-Title: JPetStore Demo 6
+Implementation-URL: http://www.mybatis.org
+Implementation-Vendor: MyBatis.org
+Implementation-Vendor-Id: org.mybatis
+Implementation-Version: 6.0.3-SNAPSHOT
+Import-Package: javax.servlet.http,net.sourceforge.stripes.action,net.so
+ urceforge.stripes.integration.spring,net.sourceforge.stripes.validation
+ ,org.springframework.http,org.springframework.http.converter.json,org.s
+ pringframework.stereotype,org.springframework.transaction.annotation,or
+ g.springframework.web.client
+Include-Resource: {database/jpetstore-hsqldb-schema.sql=src/main/resourc
+ es/database/jpetstore-hsqldb-schema.sql},{database/jpetstore-hsqldb-dat
+ aload.sql=src/main/resources/database/jpetstore-hsqldb-dataload.sql},{o
+ rg/mybatis/jpetstore/mapper/OrderMapper.xml=src/main/resources/org/myba
+ tis/jpetstore/mapper/OrderMapper.xml},{org/mybatis/jpetstore/mapper/Seq
+ uenceMapper.xml=src/main/resources/org/mybatis/jpetstore/mapper/Sequenc
+ eMapper.xml},{org/mybatis/jpetstore/mapper/AccountMapper.xml=src/main/r
+ esources/org/mybatis/jpetstore/mapper/AccountMapper.xml},{org/mybatis/j
+ petstore/mapper/ProductMapper.xml=src/main/resources/org/mybatis/jpetst
+ ore/mapper/ProductMapper.xml},{org/mybatis/jpetstore/mapper/ItemMapper.
+ xml=src/main/resources/org/mybatis/jpetstore/mapper/ItemMapper.xml},{or
+ g/mybatis/jpetstore/mapper/CategoryMapper.xml=src/main/resources/org/my
+ batis/jpetstore/mapper/CategoryMapper.xml},{org/mybatis/jpetstore/mappe
+ r/LineItemMapper.xml=src/main/resources/org/mybatis/jpetstore/mapper/Li
+ neItemMapper.xml},{StripesResources.properties=src/main/resources/Strip
+ esResources.properties},{log4j.properties=src/main/resources/log4j.prop
+ erties},META-INF/LICENSE=LICENSE,META-INF/NOTICE=NOTICE
+Private-Package: database
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Specification-Title: JPetStore Demo 6
+Specification-Vendor: MyBatis.org
+Specification-Version: 6.0.3-SNAPSHOT
+Tool: Bnd-4.1.0.201810181252
+X-Compile-Source-JDK: 1.8
+X-Compile-Target-JDK: 1.8

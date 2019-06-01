@@ -16,7 +16,6 @@
 package org.booknando.jpetstore.catalog.mapper;
 
 import org.booknando.jpetstore.catalog.domain.Product;
-import org.mybatis.jpetstore.domain.Product;
 
 import java.util.List;
 

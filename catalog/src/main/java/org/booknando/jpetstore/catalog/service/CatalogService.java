@@ -22,6 +22,7 @@ import org.booknando.jpetstore.catalog.mapper.CategoryMapper;
 import org.booknando.jpetstore.catalog.mapper.ItemMapper;
 import org.booknando.jpetstore.catalog.mapper.ProductMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public class CatalogService implements ICatalogService {
   private final CategoryMapper categoryMapper;
   private final ItemMapper itemMapper;
   private final ProductMapper productMapper;
+  private final ThreadLocal<String> categoryId = new ThreadLocal<String>();
 
   public CatalogService(CategoryMapper categoryMapper, ItemMapper itemMapper, ProductMapper productMapper) {
     this.categoryMapper = categoryMapper;
@@ -50,7 +52,9 @@ public class CatalogService implements ICatalogService {
   }
 
   @Override
+  @Transactional
   public Category getCategory(String categoryId) {
+    this.categoryId.set(categoryId);
     return categoryMapper.getCategory(categoryId);
   }
 

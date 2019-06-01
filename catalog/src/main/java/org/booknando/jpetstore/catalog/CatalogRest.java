@@ -1,9 +1,14 @@
 package org.booknando.jpetstore.catalog;
-
-import org.booknando.jpetstore.catalog.domain.Account;
+import org.booknando.jpetstore.catalog.domain.Category;
+import org.booknando.jpetstore.catalog.domain.Product;
+import org.booknando.jpetstore.catalog.mapper.CategoryMapper;
+import org.booknando.jpetstore.catalog.mapper.ProductMapper;
 import org.booknando.jpetstore.catalog.service.ICatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
@@ -12,30 +17,25 @@ public class CatalogRest {
     @Autowired
     private ICatalogService service;
 
-    @RequestMapping(path = "/catalog/{username}", method = RequestMethod.GET)
-    public Account getAccount(@PathVariable("username") String username) {
-        System.out.println(username);
-        Account account = service.getAccount(username);
-        if (account == null) {
-            throw new ResourceNotFoundException();
-        }
-        return account;
+    private final ProductMapper productMapper;
+    private final CategoryMapper categoryMapper;
+
+
+    @org.jetbrains.annotations.Contract(pure = true)
+    public CatalogRest(ProductMapper productMapper, CategoryMapper categoryMapper) {
+        this.productMapper = productMapper;
+        this.categoryMapper = categoryMapper;
     }
 
-    @RequestMapping(path = "/catalog/{username}/{password}")
-    public Account getAccountPassword(@PathVariable("username") String username, @PathVariable("username") String password) {
-        System.out.println(username + " - "+ password);
-        Account account = service.getAccount(username, password);
-        if (account == null) {
-            throw new ResourceNotFoundException();
-        }
-        return account;
+
+    @RequestMapping(path = "/catalog/product/{productId}", method = RequestMethod.GET)
+    public Product getProduct(@PathVariable("productId") String productId) {
+        return productMapper.getProduct(productId);
     }
 
-    @RequestMapping(path = "/catalog/{username}", method = RequestMethod.PUT)
-    public Account update(@RequestBody Account account) {
-        service.updateAccount(account);
-
-        return service.getAccount(account.getUsername());
+    @RequestMapping(path = "/catalog/category/{categoryId}", method = RequestMethod.GET)
+    public Category getCategory(@PathVariable("categoryId") String categoryId) {
+        return categoryMapper.getCategory(categoryId);
     }
+
 }

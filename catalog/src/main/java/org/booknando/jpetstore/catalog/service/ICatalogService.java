@@ -25,6 +25,8 @@ public interface ICatalogService {
 
   List<Category> getCategoryList();
 
+
+
   Category getCategory(String categoryId);
 
   Product getProduct(String productId);

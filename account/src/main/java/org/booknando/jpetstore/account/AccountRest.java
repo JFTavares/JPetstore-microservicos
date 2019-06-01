@@ -32,10 +32,17 @@ public class AccountRest {
         return account;
     }
 
-    @RequestMapping(path = "/account/{username}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/account/update/{account}", method = RequestMethod.PUT)
     public Account update(@RequestBody Account account) {
         service.updateAccount(account);
 
-        return service.getAccount(account.getUsername());
+        return account;
+    }
+
+    @RequestMapping(path = "/account/new/{account}", method = RequestMethod.PUT)
+    public Account insert(@RequestBody Account account) {
+        service.insertAccount(account);
+
+        return account;
     }
 }

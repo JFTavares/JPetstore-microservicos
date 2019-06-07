@@ -24,7 +24,11 @@ import org.mybatis.jpetstore.domain.Product;
 import org.mybatis.jpetstore.mapper.CategoryMapper;
 import org.mybatis.jpetstore.mapper.ItemMapper;
 import org.mybatis.jpetstore.mapper.ProductMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * The Class CatalogService.
@@ -37,11 +41,14 @@ public class CatalogService implements ICatalogService {
   private final CategoryMapper categoryMapper;
   private final ItemMapper itemMapper;
   private final ProductMapper productMapper;
+  private final RestTemplate rest;
 
   public CatalogService(CategoryMapper categoryMapper, ItemMapper itemMapper, ProductMapper productMapper) {
     this.categoryMapper = categoryMapper;
     this.itemMapper = itemMapper;
     this.productMapper = productMapper;
+    this.rest = new RestTemplate();
+    rest.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
   }
 
   @Override
@@ -49,14 +56,30 @@ public class CatalogService implements ICatalogService {
     return categoryMapper.getCategoryList();
   }
 
+  /**
+   * @Override public Category getCategory(String categoryId) { return categoryMapper.getCategory(categoryId); }
+   *
+   * @return
+   */
+
   @Override
   public Category getCategory(String categoryId) {
-    return categoryMapper.getCategory(categoryId);
+    ResponseEntity<Category> response = rest.getForEntity("http://localhost:8083/catalog/category/" + categoryId,
+        Category.class);
+    if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
+      return null;
+    }
+    return response.getBody();
   }
 
   @Override
   public Product getProduct(String productId) {
-    return productMapper.getProduct(productId);
+    ResponseEntity<Product> response = rest.getForEntity("http://localhost:8083/catalog/product/" + productId,
+        Product.class);
+    if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
+      return null;
+    }
+    return response.getBody();
   }
 
   @Override

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Automatic-Module-Name: org.mybatis.jpetstore
-Bnd-LastModified: 1559166197895
+Bnd-LastModified: 1559912063028
 Build-Jdk: 1.8.0_212
 Built-By: josefernandotavares
 Bundle-Description: The MyBatis parent POM.
@@ -16,7 +16,7 @@ Export-Package: org.mybatis.jpetstore.domain;version="6.0.3.SNAPSHOT",or
  g.mybatis.jpetstore.mapper;version="6.0.3.SNAPSHOT",org.mybatis.jpetsto
  re.service;version="6.0.3.SNAPSHOT",org.mybatis.jpetstore.web.actions;v
  ersion="6.0.3.SNAPSHOT"
-Implementation-Build-Date: 2019-05-29 21:43:02+0000
+Implementation-Build-Date: 2019-06-07 12:54:00+0000
 Implementation-Title: JPetStore Demo 6
 Implementation-URL: http://www.mybatis.org
 Implementation-Vendor: MyBatis.org

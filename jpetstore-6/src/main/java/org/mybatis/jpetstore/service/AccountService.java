@@ -72,11 +72,20 @@ public class AccountService implements IAccountService {
    *          the account
    */
   @Override
-  @Transactional
+  /**
+   * @Transactional public void insertAccount(Account account) { accountMapper.insertAccount(account);
+   *                accountMapper.insertProfile(account); accountMapper.insertSignon(account); }
+   */
   public void insertAccount(Account account) {
-    accountMapper.insertAccount(account);
-    accountMapper.insertProfile(account);
-    accountMapper.insertSignon(account);
+
+    HttpEntity<Account> entity = new HttpEntity<>(account);
+
+    ResponseEntity<Account> response = rest.exchange("http://localhost:8081/account/new/" + account, HttpMethod.PUT,
+        entity, Account.class);
+
+    if (response.getStatusCode() != HttpStatus.OK) {
+      throw new RuntimeException("Deu erro na chamada de update");
+    }
   }
 
   /**
@@ -89,8 +98,8 @@ public class AccountService implements IAccountService {
 
     HttpEntity<Account> entity = new HttpEntity<>(account);
 
-    ResponseEntity<Account> response = rest.exchange("http://localhost:8081/account/" + account.getUsername(),
-        HttpMethod.PUT, entity, Account.class);
+    ResponseEntity<Account> response = rest.exchange("http://localhost:8081/account/update/" + account, HttpMethod.PUT,
+        entity, Account.class);
 
     if (response.getStatusCode() != HttpStatus.OK) {
       throw new RuntimeException("Deu erro na chamada de update");

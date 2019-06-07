@@ -15,13 +15,13 @@
  */
 package org.booknando.jpetstore.order.service;
 
-import org.mybatis.jpetstore.domain.Item;
-import org.mybatis.jpetstore.domain.Order;
-import org.mybatis.jpetstore.domain.Sequence;
-import org.mybatis.jpetstore.mapper.ItemMapper;
-import org.mybatis.jpetstore.mapper.LineItemMapper;
-import org.mybatis.jpetstore.mapper.OrderMapper;
-import org.mybatis.jpetstore.mapper.SequenceMapper;
+import org.booknando.jpetstore.order.domain.Item;
+import org.booknando.jpetstore.order.domain.Order;
+import org.booknando.jpetstore.order.domain.Sequence;
+import org.booknando.jpetstore.order.mapper.ItemMapper;
+import org.booknando.jpetstore.order.mapper.LineItemMapper;
+import org.booknando.jpetstore.order.mapper.OrderMapper;
+import org.booknando.jpetstore.order.mapper.SequenceMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,7 +43,7 @@ public class OrderService implements IOrderService {
   private final LineItemMapper lineItemMapper;
 
   public OrderService(ItemMapper itemMapper, OrderMapper orderMapper, SequenceMapper sequenceMapper,
-      LineItemMapper lineItemMapper) {
+                      LineItemMapper lineItemMapper) {
     this.itemMapper = itemMapper;
     this.orderMapper = orderMapper;
     this.sequenceMapper = sequenceMapper;

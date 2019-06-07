@@ -15,7 +15,7 @@
  */
 package org.booknando.jpetstore.order.service;
 
-import org.mybatis.jpetstore.domain.Order;
+import org.booknando.jpetstore.order.domain.Order;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

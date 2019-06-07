@@ -13,21 +13,26 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.booknando.jpetstore.catalog.mapper;
+package org.booknando.jpetstore.order.mapper;
 
-import org.booknando.jpetstore.catalog.domain.Category;
+import org.booknando.jpetstore.order.domain.Item;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * The Interface CategoryMapper.
+ * The Interface ItemMapper.
  *
  * @author Eduardo Macarron
  */
-public interface CategoryMapper {
+public interface ItemMapper {
 
-  List<Category> getCategoryList();
+  void updateInventoryQuantity(Map<String, Object> param);
 
-  Category getCategory(String categoryId);
+  int getInventoryQuantity(String itemId);
+
+  List<Item> getItemListByProduct(String productId);
+
+  Item getItem(String itemId);
 
 }

@@ -15,7 +15,7 @@
  */
 package org.booknando.jpetstore.order.mapper;
 
-import org.mybatis.jpetstore.domain.Order;
+import org.booknando.jpetstore.order.domain.Order;
 
 import java.util.List;
 

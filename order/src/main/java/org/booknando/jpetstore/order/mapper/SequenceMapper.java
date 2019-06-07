@@ -13,21 +13,18 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.booknando.jpetstore.catalog.mapper;
+package org.booknando.jpetstore.order.mapper;
 
-import org.booknando.jpetstore.catalog.domain.Category;
-
-import java.util.List;
+import org.booknando.jpetstore.order.domain.Sequence;
 
 /**
- * The Interface CategoryMapper.
+ * The Interface SequenceMapper.
  *
  * @author Eduardo Macarron
  */
-public interface CategoryMapper {
+public interface SequenceMapper {
 
-  List<Category> getCategoryList();
+  Sequence getSequence(Sequence sequence);
 
-  Category getCategory(String categoryId);
-
+  void updateSequence(Sequence sequence);
 }

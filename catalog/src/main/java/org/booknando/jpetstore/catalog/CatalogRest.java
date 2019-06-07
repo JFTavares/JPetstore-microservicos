@@ -17,11 +17,11 @@ public class CatalogRest {
     @Autowired
     private ICatalogService service;
 
+
     private final ProductMapper productMapper;
     private final CategoryMapper categoryMapper;
 
 
-    @org.jetbrains.annotations.Contract(pure = true)
     public CatalogRest(ProductMapper productMapper, CategoryMapper categoryMapper) {
         this.productMapper = productMapper;
         this.categoryMapper = categoryMapper;

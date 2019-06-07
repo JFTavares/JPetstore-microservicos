@@ -13,21 +13,21 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.booknando.jpetstore.catalog.mapper;
+package org.booknando.jpetstore.order.mapper;
 
-import org.booknando.jpetstore.catalog.domain.Category;
+import org.booknando.jpetstore.order.domain.LineItem;
 
 import java.util.List;
 
 /**
- * The Interface CategoryMapper.
+ * The Interface LineItemMapper.
  *
  * @author Eduardo Macarron
  */
-public interface CategoryMapper {
+public interface LineItemMapper {
 
-  List<Category> getCategoryList();
+  List<LineItem> getLineItemsByOrderId(int orderId);
 
-  Category getCategory(String categoryId);
+  void insertLineItem(LineItem lineItem);
 
 }

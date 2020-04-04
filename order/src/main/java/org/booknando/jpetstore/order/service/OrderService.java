@@ -15,15 +15,21 @@
  */
 package org.booknando.jpetstore.order.service;
 
+import org.booknando.jpetstore.order.CreateOrderRequest;
 import org.booknando.jpetstore.order.domain.Item;
 import org.booknando.jpetstore.order.domain.Order;
 import org.booknando.jpetstore.order.domain.Sequence;
-import org.booknando.jpetstore.order.mapper.ItemMapper;
 import org.booknando.jpetstore.order.mapper.LineItemMapper;
 import org.booknando.jpetstore.order.mapper.OrderMapper;
 import org.booknando.jpetstore.order.mapper.SequenceMapper;
+import org.booknando.jpetstore.order.mapper.ItemMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
+
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +47,8 @@ public class OrderService implements IOrderService {
   private final OrderMapper orderMapper;
   private final SequenceMapper sequenceMapper;
   private final LineItemMapper lineItemMapper;
+  private final RestTemplate rest;
+
 
   public OrderService(ItemMapper itemMapper, OrderMapper orderMapper, SequenceMapper sequenceMapper,
                       LineItemMapper lineItemMapper) {
@@ -48,6 +56,8 @@ public class OrderService implements IOrderService {
     this.orderMapper = orderMapper;
     this.sequenceMapper = sequenceMapper;
     this.lineItemMapper = lineItemMapper;
+    this.rest = new RestTemplate();
+    rest.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
   }
 
   /**
@@ -99,6 +109,18 @@ public class OrderService implements IOrderService {
     return order;
   }
 
+  @Override
+  public Item getItem(String itemId) {
+    ResponseEntity<Item> response = rest.getForEntity("http://localhost:8083/catalog/item/" + itemId,
+            Item.class);
+    if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
+      return null;
+    }
+    return response.getBody();
+  }
+
+
+
   /**
    * Gets the orders by username.
    *
@@ -129,5 +151,13 @@ public class OrderService implements IOrderService {
     sequenceMapper.updateSequence(parameterObject);
     return sequence.getNextId();
   }
+
+  @Override
+  public Order initOrder(CreateOrderRequest request) {
+    Order order = new Order();
+    order.initOrder(request.getAccount(), request.getCart());
+    return order;
+  }
+
 
 }

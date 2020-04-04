@@ -15,6 +15,8 @@
  */
 package org.booknando.jpetstore.order.service;
 
+import org.booknando.jpetstore.order.CreateOrderRequest;
+import org.booknando.jpetstore.order.domain.Item;
 import org.booknando.jpetstore.order.domain.Order;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +29,11 @@ public interface IOrderService {
   @Transactional
   Order getOrder(int orderId);
 
+  Item getItem(String itemId);
+
   List<Order> getOrdersByUsername(String username);
 
   int getNextId(String name);
+
+  Order initOrder(CreateOrderRequest request);
 }

@@ -19,15 +19,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.mybatis.jpetstore.domain.Item;
-import org.mybatis.jpetstore.domain.Order;
-import org.mybatis.jpetstore.domain.Sequence;
+import org.mybatis.jpetstore.domain.*;
 import org.mybatis.jpetstore.mapper.ItemMapper;
 import org.mybatis.jpetstore.mapper.LineItemMapper;
 import org.mybatis.jpetstore.mapper.OrderMapper;
 import org.mybatis.jpetstore.mapper.SequenceMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * The Class OrderService.
@@ -41,6 +47,7 @@ public class OrderService implements IOrderService {
   private final OrderMapper orderMapper;
   private final SequenceMapper sequenceMapper;
   private final LineItemMapper lineItemMapper;
+  private final RestTemplate rest;
 
   public OrderService(ItemMapper itemMapper, OrderMapper orderMapper, SequenceMapper sequenceMapper,
       LineItemMapper lineItemMapper) {
@@ -48,6 +55,8 @@ public class OrderService implements IOrderService {
     this.orderMapper = orderMapper;
     this.sequenceMapper = sequenceMapper;
     this.lineItemMapper = lineItemMapper;
+    this.rest = new RestTemplate();
+    rest.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
   }
 
   /**
@@ -85,18 +94,12 @@ public class OrderService implements IOrderService {
    * @return the order
    */
   @Override
-  @Transactional
   public Order getOrder(int orderId) {
-    Order order = orderMapper.getOrder(orderId);
-    order.setLineItems(lineItemMapper.getLineItemsByOrderId(orderId));
-
-    order.getLineItems().forEach(lineItem -> {
-      Item item = itemMapper.getItem(lineItem.getItemId());
-      item.setQuantity(itemMapper.getInventoryQuantity(lineItem.getItemId()));
-      lineItem.setItem(item);
-    });
-
-    return order;
+    ResponseEntity<Order> response = rest.getForEntity("http://localhost:8081∑∑/order/" + orderId, Order.class);
+    if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
+      return null;
+    }
+    return response.getBody();
   }
 
   /**
